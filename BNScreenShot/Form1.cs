@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -35,6 +36,7 @@ namespace BNScreenShot
         {
             // Hide Form
             this.Hide();
+            this.Cursor = Cursors.Cross;
             Bitmap printScreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
                                      Screen.PrimaryScreen.Bounds.Height);
             // Create the Grpahic Variable with screen dimentions
@@ -106,6 +108,7 @@ namespace BNScreenShot
                 start = false;
                 //function save image to clipboard
                 SaveToClipboard();
+                this.Cursor = Cursors.Default;
             }
         }
         private void SaveToClipboard()
@@ -133,6 +136,8 @@ namespace BNScreenShot
                 _img.Save("./images/" + fid + ".png");
                 //Console.Write(fid);
                 Clipboard.SetText(fid);
+                
+                Thread.Sleep(1000);
             }
             //End application
             Application.Exit();
